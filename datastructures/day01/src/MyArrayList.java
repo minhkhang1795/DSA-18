@@ -4,7 +4,7 @@ public class MyArrayList {
 
     // TODO: Runtime: O(1)
     public MyArrayList() {
-        elems = new Cow[10];
+        this(10);
     }
 
     // TODO: Runtime: O(1)
@@ -12,7 +12,7 @@ public class MyArrayList {
         elems = new Cow[capacity];
     }
 
-    // TODO: Runtime: O(1)
+    // TODO: Runtime: O(1)*
     public void add(Cow c) {
         // Amortization
         if (size >= 0.25 * elems.length) {
@@ -35,7 +35,7 @@ public class MyArrayList {
         return elems[index];
     }
 
-    // TODO: Runtime: O(?)
+    // TODO: Runtime: O(n)*
     public Cow remove(int index) {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
