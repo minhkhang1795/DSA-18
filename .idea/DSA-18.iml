@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day00/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day01/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day01/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/datastructures/day02/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/datastructures/day02/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
