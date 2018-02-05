@@ -93,18 +93,18 @@ public class Problems {
         StringJoiner result = new StringJoiner(" ");
         Queue<Character> numbers = new LinkedList<>();
         Stack<Character> operations = new Stack<>();
-        Stack<Character> parens = new Stack<>();
+        int numParens = 0;
 
         for (char c : s.toCharArray()) {
             if (c == ')') {
-                parens.pop();
+                numParens--;
                 numbers.add(operations.pop());
             } else if (c == '(') {
-                parens.push(c);
+                numParens++;
             } else if (c >= '0' && c <= '9') {
                 numbers.add(c);
             } else if (c == '+' || c == '-' || c == '*' || c == '/') {
-                while (parens.isEmpty() && !operations.isEmpty())
+                while (numParens == 0 && !operations.isEmpty())
                     numbers.add(operations.pop());
                 operations.push(c);
             }
