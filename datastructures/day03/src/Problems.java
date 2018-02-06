@@ -16,12 +16,15 @@ public class Problems {
     public static List<Integer> removeKDigits(int[] A, int k) {
         Stack<Integer> stack = new Stack<>();
         for (int a : A) {
+            // If the top elements in stack > element a, pop them out
             while (k != 0 && !stack.isEmpty() && stack.peek() > a) {
                 stack.pop();
                 k--;
             }
             stack.push(a);
         }
+
+        // Deal with a special case when k > 0
         while (k-- > 0)
             stack.pop();
         return stack;
@@ -57,17 +60,25 @@ public class Problems {
     // TODO: O(N)
     public static boolean isPalindrome(Node n) {
         Node head = n;
+
+        // Find the size
         int size = 0;
         while (head != null) {
             head = head.next;
             size++;
         }
         head = n;
+
+        // Find the mid node
+        // 2 1 1
         Node mid = n;
-        for (int i = 0; i <= size / 2 && size != 0; i++)
+        for (int i = 0; i < size / 2 && size != 0; i++)
             mid = mid.next;
 
+        // Reverse the mid node
         mid = reverse(mid);
+
+        // Check if palindrome
         while (mid != null) {
             if (head.val != mid.val)
                 return false;
@@ -95,6 +106,7 @@ public class Problems {
         Stack<Character> operations = new Stack<>();
         int numParens = 0;
 
+        // Keep track of numbers/operations
         for (char c : s.toCharArray()) {
             if (c == ')') {
                 numParens--;
@@ -109,8 +121,11 @@ public class Problems {
                 operations.push(c);
             }
         }
+
+        // Add all operations left in the stack
         numbers.addAll(operations);
 
+        // Merge the characters into string
         while (!numbers.isEmpty())
             result.add(numbers.remove() + "");
 

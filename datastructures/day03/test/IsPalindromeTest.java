@@ -27,12 +27,12 @@ public class IsPalindromeTest {
 
     @Test
     public void isPalindrome3() {
-        assertTrue(Problems.isPalindrome(generateList(new int[]{1, 1})));
+        assertFalse(Problems.isPalindrome(generateList(new int[]{1, 2})));
     }
 
     @Test
     public void isPalindrome4() {
-        assertTrue(Problems.isPalindrome(generateList(new int[]{2, 1, 2})));
+        assertFalse(Problems.isPalindrome(generateList(new int[]{2, 1, 1})));
     }
 
     @Test
