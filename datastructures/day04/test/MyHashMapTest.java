@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyHashMapTest {
 
-    private Map<String, Integer> map;
+    private MyHashMap<String, Integer> map;
 
     /**
      * @throws java.lang.Exception

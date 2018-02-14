@@ -5,10 +5,12 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day00/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day01/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/datastructures/day01/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day02/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/datastructures/day03/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day03/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/datastructures/day04/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/datastructures/day04/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/sorting/day00/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sorting/day00/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

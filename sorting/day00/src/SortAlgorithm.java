@@ -8,4 +8,12 @@ public abstract class SortAlgorithm {
         a[j] = temp;
     }
 
+    int[] split(int[] a, int start, int end) {
+        if (start > end)
+            return null;
+        int[] b = new int[end - start];
+        System.arraycopy(a, start, b, 0, end - start);
+        return b;
+    }
+
 }
