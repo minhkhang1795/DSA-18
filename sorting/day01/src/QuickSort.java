@@ -66,9 +66,6 @@ public class QuickSort extends SortAlgorithm {
      */
     public int partition(int[] array, int lo, int hi) {
         // TODO
-        if (lo == hi)
-            return lo;
-
         int i = lo + 1;
         while (i <= hi) {
             if (array[i] >= array[lo])
