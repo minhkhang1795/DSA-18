@@ -12,7 +12,7 @@ public class TripleSum {
 
         int count = 0;
         for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = i+1; j < arr.length; j++) {
+            for (int j = i + 1; j < arr.length; j++) {
                 int temp = sum - arr[i] - arr[j];
                 if (temp == arr[i] || temp == arr[j])
                     continue;
@@ -20,6 +20,6 @@ public class TripleSum {
                     count++;
             }
         }
-        return count/3;
+        return count / 3;
     }
 }
