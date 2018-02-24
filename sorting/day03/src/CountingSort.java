@@ -6,7 +6,8 @@ public class CountingSort {
      * Use counting sort to sort positive integer array A.
      * Runtime: TODO
      * <p>
-     *     Time Complexity: O(n + k)
+     * Time Complexity: O(n + k)
+     * Space Complexity: O(k)
      * k: maximum element in array A
      */
     public static void countingSort(int[] A) {
