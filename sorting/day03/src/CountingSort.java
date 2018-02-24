@@ -1,13 +1,25 @@
+import java.util.Arrays;
+
 public class CountingSort {
 
     /**
      * Use counting sort to sort positive integer array A.
      * Runtime: TODO
-     *
+     * <p>
+     *     Time Complexity: O(n + k)
      * k: maximum element in array A
      */
-    static void countingSort(int[] A) {
+    public static void countingSort(int[] A) {
         // TODO
-    }
+        int max = -1;
+        for (int a : A)
+            max = max > a ? max : a;
+        int[] counter = new int[max + 1];
+        for (int a : A)
+            counter[a]++;
 
+        for (int i = 0, j = 0; i < counter.length; i++)
+            while (counter[i]-- > 0)
+                A[j++] = i;
+    }
 }
