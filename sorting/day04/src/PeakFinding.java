@@ -50,12 +50,47 @@ public class PeakFinding {
 
     public static int findOneDPeak(int[] nums) {
         // TODO
-        return 0;
+        return findOneDPeakHelper(nums, 0, nums.length);
+    }
+
+    private static int findOneDPeakHelper(int[] nums, int lo, int hi) {
+        int mid = (lo + hi) / 2;
+        int peakCheck = peakOneD(mid, nums);
+        if (peakCheck == 0)
+            return mid;
+        else if (peakCheck == 1)
+            return findOneDPeakHelper(nums, mid, hi);
+        else
+            return findOneDPeakHelper(nums, lo, mid);
     }
 
     public static int[] findTwoDPeak(int[][] nums) {
         // TODO
-        return null;
+        return findTwoDPeakHelper(nums, nums.length / 2, nums[0].length / 2);
+    }
+
+    private static int[] findTwoDPeakHelper(int[][] nums, int r, int c) {
+        int peakY = 0;
+        if (!(r == 0 || r == nums.length - 1))
+            peakY = peakY(c, r, nums);
+        int peakX = 0;
+        if (!(c == 0 || c == nums[0].length - 1))
+            peakX = peakX(c, r, nums);
+
+        if (peakX == 0 && peakY == 0)
+            return new int[]{r, c};
+        else {
+            if (peakY == -1)
+                r /= 2;
+            else if (peakY == 1)
+                r = (nums.length - r) / 2 + r;
+
+            if (peakX == -1)
+                c /= 2;
+            else if (peakX == 1)
+                c = (nums[0].length - c) / 2 + c;
+        }
+        return findTwoDPeakHelper(nums, r, c);
     }
 
 }
