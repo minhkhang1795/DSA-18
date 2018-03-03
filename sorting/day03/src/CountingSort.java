@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class CountingSort {
 
     /**
-     * Use counting sort to sort positive integer array A.
+     * Use counting sort to sort non-negative integer array A.
      * Runtime: TODO
      * <p>
      * Time Complexity: O(n + k)
