@@ -47,12 +47,23 @@ public class PeakFinding {
         return maxIndex;
     }
 
-
+    /**
+     * @param nums 1D array of int
+     * @return return any peak in the array
+     */
     public static int findOneDPeak(int[] nums) {
         // TODO
         return findOneDPeakHelper(nums, 0, nums.length);
     }
 
+    /**
+     * Helper function for findOneDPeak. Recursively searching for a peak from low to hi, then return any peak in nums
+     *
+     * @param nums 1D array of int
+     * @param lo   starting index to search
+     * @param hi   ending index to search
+     * @return return any peak in the array
+     */
     private static int findOneDPeakHelper(int[] nums, int lo, int hi) {
         int mid = (lo + hi) / 2;
         int peakCheck = peakOneD(mid, nums);
@@ -64,11 +75,55 @@ public class PeakFinding {
             return findOneDPeakHelper(nums, lo, mid);
     }
 
+    /**
+     * @param nums 2D array of int
+     * @return return any peak in the array
+     */
     public static int[] findTwoDPeak(int[][] nums) {
         // TODO
-        return findTwoDPeakHelper(nums, nums.length / 2, nums[0].length / 2);
+        return findTwoDPeakHelper_2(nums, 0, nums.length, 0, nums[0].length);
     }
 
+    /**
+     * Helper function for findTwoDPeak. Recursively searching for a peak between row up - row down and
+     * column left and column right.
+     * @param nums 2D array of int
+     * @param ru index of row up/above
+     * @param rd index of row down/below
+     * @param cl index of column left
+     * @param cr index of column right
+     * @return return the peak's indices in the array
+     */
+    private static int[] findTwoDPeakHelper_2(int[][] nums, int ru, int rd, int cl, int cr) {
+        int rmid = (ru + rd) / 2;
+        int cmid = (cl + cr) / 2;
+        int peakY = peakY(cmid, rmid, nums);
+        int peakX = peakX(cmid, rmid, nums);
+
+        if (peakX == 0 && peakY == 0)
+            return new int[]{rmid, cmid};
+        else {
+            if (peakY == -1)
+                rd = rmid;
+            else if (peakY == 1)
+                ru = rmid;
+
+            if (peakX == -1)
+                cr = cmid;
+            else if (peakX == 1)
+                cl = cmid;
+        }
+        return findTwoDPeakHelper_2(nums, ru, rd, cl, cr);
+    }
+
+    /**
+     * Old Helper function for findTwoDPeak. Recursively searching for a peak between row up - row down and
+     * column left and column right.
+     * @param nums 2D array of int
+     * @param r index of current row
+     * @param c index of curren column
+     * @return return the peak's indices in the array
+     */
     private static int[] findTwoDPeakHelper(int[][] nums, int r, int c) {
         int peakY = 0;
         if (!(r == 0 || r == nums.length - 1))

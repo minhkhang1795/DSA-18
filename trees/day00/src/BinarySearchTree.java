@@ -1,3 +1,6 @@
+import jdk.nashorn.api.tree.Tree;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable<T>> {
@@ -27,9 +30,25 @@ public class BinarySearchTree<T extends Comparable<T>> {
             add(k);
     }
 
+    /**
+     * Worst case: O(n)
+     *
+     * @return list of in-order traversal
+     */
     public List<T> inOrderTraversal() {
         // TODO
-        return null;
+        return inOrderTraversalHelper(root);
+    }
+
+
+    public List<T> inOrderTraversalHelper(TreeNode<T> root) {
+        if (root == null)
+            return new ArrayList<>();
+        List<T> result = new ArrayList<>();
+        result.addAll(inOrderTraversalHelper(root.leftChild));
+        result.add(root.key);
+        result.addAll(inOrderTraversalHelper(root.rightChild));
+        return result;
     }
 
     /**
@@ -67,7 +86,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
         else {
             // Case 3: two children
             // TODO
-            replacement = null;
+            TreeNode<T> successor = findSuccessor(n);
+            n.key = successor.key;
+            replacement = n;
+            delete(successor);
         }
 
         // Put the replacement in its correct place, and set the parent.
@@ -75,6 +97,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return replacement;
     }
 
+    /**
+     * Worst case: O(n)
+     *
+     * @param key node that has a specific key
+     * @return predecessor of the node
+     */
     public T findPredecessor(T key) {
         TreeNode<T> n = find(root, key);
         if (n != null) {
@@ -85,6 +113,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return null;
     }
 
+    /**
+     * Worst case: O(n)
+     *
+     * @param key node that has a specific key
+     * @return successor of the node
+     */
     public T findSuccessor(T key) {
         TreeNode<T> n = find(root, key);
         if (n != null) {
@@ -97,12 +131,38 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     private TreeNode<T> findPredecessor(TreeNode<T> n) {
         // TODO
-        return null;
+        if (n.hasLeftChild())
+            return findMaxChild(n.leftChild);
+        while (n.isLeftChild()) {
+            if (n.parent.isRightChild())
+                return n.parent.parent;
+            n = n.parent;
+        }
+        return n.parent;
     }
 
     private TreeNode<T> findSuccessor(TreeNode<T> n) {
         // TODO
-        return null;
+        if (n.hasRightChild())
+            return findMinChild(n.rightChild);
+        while (n.isRightChild()) {
+            if (n.parent.isLeftChild())
+                return n.parent.parent;
+            n = n.parent;
+        }
+        return n.parent;
+    }
+
+    private TreeNode<T> findMinChild(TreeNode<T> n) {
+        if (n == null || n.leftChild == null)
+            return n;
+        return findMinChild(n.leftChild);
+    }
+
+    private TreeNode<T> findMaxChild(TreeNode<T> n) {
+        if (n == null || n.rightChild == null)
+            return n;
+        return findMaxChild(n.rightChild);
     }
 
     /**
