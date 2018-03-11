@@ -29,31 +29,62 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
     // make a left-leaning link lean to the right
     TreeNode<T> rotateRight(TreeNode<T> h) {
         // TODO
-        return h;
+        if (h == null || h.leftChild == null)
+            return h;
+        TreeNode<T> result = h.leftChild;
+        TreeNode<T> temp = result.rightChild;
+        result.rightChild = h;
+        h.leftChild = temp;
+        return result;
     }
 
     // make a right-leaning link lean to the left
     TreeNode<T> rotateLeft(TreeNode<T> h) {
         // TODO
-        return h;
+        if (h == null || h.rightChild == null)
+            return h;
+        TreeNode<T> result = h.rightChild;
+        TreeNode<T> temp = result.leftChild;
+        result.leftChild = h;
+        h.rightChild = temp;
+        return result;
     }
 
     // flip the colors of a TreeNode and its two children
     TreeNode<T> flipColors(TreeNode<T> h) {
         // TODO
+        if (h != null) {
+            h.color = RED;
+            if (h.leftChild != null)
+                h.leftChild.color = BLACK;
+            if (h.rightChild != null)
+                h.rightChild.color = BLACK;
+        }
         return h;
     }
 
 
     /**
      * fix three cases:
-     *   1. h.right is red
-     *   2. h.left is red, and h.left.left is red
-     *   2. h.left and h.right are red
+     * 1. h.right is red
+     * 2. h.left is red, and h.left.left is red
+     * 2. h.left and h.right are red
      * return balanced node
      */
     private TreeNode<T> balance(TreeNode<T> h) {
         // TODO
+        if (h.rightChild != null && h.rightChild.color == RED) {
+            if (h.leftChild != null && h.leftChild.color == RED) {
+                h = flipColors(h);
+            } else {
+                h = rotateLeft(h);
+                h.color = h.leftChild.color;
+                h.leftChild.color = RED;
+            }
+        } else if (h.leftChild != null && h.leftChild.color == RED && h.leftChild.leftChild != null && h.leftChild.leftChild.color == RED) {
+            h = rotateRight(h);
+            h = flipColors(h);
+        }
         return h;
     }
 
@@ -66,7 +97,11 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
     TreeNode<T> insert(TreeNode<T> h, T key) {
         h = super.insert(h, key);
         // TODO: use balance to correct for the three rotation cases
-        return h;
+        if (h != null) {
+            // TODO
+            return balance(h);
+        }
+        return null;
     }
 
 
@@ -108,6 +143,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         // OPTIONAL TODO: write this function and use it in delete(h, key)
         return h;
     }
+
     // delete the key-value pair with the given key rooted at h
     TreeNode<T> delete(TreeNode<T> h, T key) {
         // OPTIONAL TODO

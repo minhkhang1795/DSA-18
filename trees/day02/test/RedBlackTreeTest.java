@@ -129,6 +129,7 @@ public class RedBlackTreeTest {
         List<Integer> input = Arrays.asList(3, 1, 2, 6, 3, 4, 9, 10, 1, 2, 3);
         for (Integer i: input) {
             rbt.add(i);
+            System.out.print("here");
         }
         isRedBlack(rbt);
         containsCorrectValues(rbt, input);
