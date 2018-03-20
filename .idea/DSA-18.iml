@@ -7,9 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day01/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day02/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/datastructures/day04/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/trees/day03/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/trees/day03/tests" isTestSource="true" />
     </content>
+    <content url="file://$MODULE_DIR$/datastructures" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" scope="TEST">
