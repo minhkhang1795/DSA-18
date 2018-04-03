@@ -58,14 +58,15 @@ public class NQueens {
 
     private static void nQueensSolutions(char[][] current, int row, List<char[][]> answers) {
         if (row == current.length) {
-            answers.add(current);
+            answers.add(copyOf(current));
             return;
         }
         for (int col = 0; col < current.length; col++) {
-            fillBoard(current, row, col);
-            if (!checkValid(current, row, col))
+            if (!checkValid(current, row, col)) {
                 continue;
-            nQueensSolutions(copyOf(current), row + 1, answers);
+            }
+            fillBoard(current, row, col);
+            nQueensSolutions(current, row + 1, answers);
         }
     }
 
