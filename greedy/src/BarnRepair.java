@@ -8,25 +8,12 @@ public class BarnRepair {
         // TODO
         Arrays.sort(occupied);
         PriorityQueue<Integer> empty = new PriorityQueue<>(Collections.reverseOrder());
-        ArrayList<Integer> list = new ArrayList<>();
-        int count = 1;
         for (int i = 0; i < occupied.length - 1; i++) {
-            if (occupied[i] == occupied[i + 1] - 1) {
-                count++;
-            } else {
-                list.add(count);
-                list.add(occupied[i + 1] - occupied[i] - 1);
-                count = 1;
+            if (occupied[i + 1] - occupied[i] > 1) {
+                empty.add(occupied[i + 1] - occupied[i] - 1);
             }
         }
-        list.add(count);
-        int sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (i % 2 != 0) {
-                empty.add(list.get(i));
-            }
-            sum += list.get(i);
-        }
+        int sum = occupied[occupied.length - 1] - occupied[0] + 1;
         while (M > 1) {
             if (!empty.isEmpty())
                 sum -= empty.poll();
