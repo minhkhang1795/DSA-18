@@ -10,8 +10,8 @@
       <sourceFolder url="file://$MODULE_DIR$/directory/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/directory/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/directory" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/graphs/day01/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/graphs/day01/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/greedy/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/greedy/test" isTestSource="true" />
     </content>
     <content url="file://$MODULE_DIR$/datastructures" />
     <orderEntry type="inheritedJdk" />

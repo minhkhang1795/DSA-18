@@ -14,7 +14,7 @@ public class BarnRepairTest {
 
     public static BufferedReader readTestFile(String name) throws IOException {
         String slash = File.separator;
-        String filename = System.getProperty("user.dir") + slash +
+        String filename = System.getProperty("user.dir") + slash + "greedy" + slash +
                 "test" + slash + "files" + slash + name;
         return new BufferedReader(new FileReader(filename));
     }
