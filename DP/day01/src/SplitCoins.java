@@ -10,7 +10,7 @@ public class SplitCoins {
         for (int i : coins)
             sum += i;
 
-        int dp[][] = new int[coins.length][sum / 2 + 1];
+        int[][] dp = new int[coins.length][sum / 2 + 1];
         for (int i = 0; i < dp.length; i++) {
             for (int j = 0; j < dp[i].length; j++) {
                 dp[i][j] = -1;
