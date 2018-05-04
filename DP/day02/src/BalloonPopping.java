@@ -1,7 +1,6 @@
-import java.util.Arrays;
-
 public class BalloonPopping {
-
+    // Time Complexity: N^3
+    // Space Complexity: N^2
     public static int maxPoints(int[] B) {
         // TODO
         int[][] pts = new int[B.length][B.length];
@@ -9,7 +8,6 @@ public class BalloonPopping {
             for (int i = 0; i < B.length - len; i++) {
                 int j = i + len;
                 int max_pts = -1;
-
                 for (int k = i; k <= j; k++) {
                     int B_left = i - 1 < 0 ? 1 : B[i - 1];
                     int B_right = j + 1 >= B.length ? 1 : B[j + 1];

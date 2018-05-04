@@ -16,6 +16,8 @@ public class TextJustification {
         return Math.pow(m - length, 3);
     }
 
+    // Time Complexity: N^2
+    // Space Complexity: N
     static List<Integer> justifyText(String[] w, int m) {
         int[] lineBreaks = new int[w.length + 1];
         double[] dp = new double[w.length + 1];
