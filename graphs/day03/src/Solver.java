@@ -15,7 +15,7 @@ public class Solver {
      * State class to make the cost calculations simple
      * This class holds a board state and all of its attributes
      */
-    private class State {
+    private class State implements Comparable<State> {
         // Each state needs to keep track of its cost and the previous state
         private Board board;
         private int moves; // equal to g-cost in A*
@@ -26,8 +26,7 @@ public class Solver {
             this.board = board;
             this.moves = moves;
             this.prev = prev;
-            // TODO
-            cost = 0;
+            this.cost = 10*this.moves + 22*board.manhattan();
         }
 
         @Override
@@ -37,15 +36,12 @@ public class Solver {
             if (!(s instanceof State)) return false;
             return ((State) s).board.equals(this.board);
         }
+
+        public int compareTo(State s) {
+            return this.cost - s.cost;
+        }
     }
 
-    /*
-     * Return the root state of a given state
-     */
-    private State root(State state) {
-        // TODO: Your code here
-        return null;
-    }
 
     /*
      * A* Solver
@@ -53,7 +49,51 @@ public class Solver {
      * and a identify the shortest path to the the goal state
      */
     public Solver(Board initial) {
-        // TODO: Your code here
+        this.solutionState = new State(initial, 0, null);
+        PriorityQueue<State> open = new PriorityQueue<>();
+        List<State> closed = new LinkedList<>();
+        open.add(this.solutionState);
+        if (!this.solutionState.board.solvable()) {
+            this.minMoves = -1;
+            this.solved = false;
+            return;
+        }
+        outerloop:
+        while (!open.isEmpty()) {
+            State q = open.poll();
+            Iterable<Board> neighbors = q.board.neighbors();
+            for (Board neighbor : neighbors) {
+                State state = new State(neighbor, q.moves + 1, q);
+
+                if (neighbor.isGoal()) {
+                    //stop search
+                    this.solutionState = state;
+                    this.minMoves = state.moves;
+                    this.solved = true;
+                    break outerloop;
+
+                }
+                boolean ignored = false;
+                for (State n : open) {
+                    if (n.equals(state) && n.cost <= state.cost) {
+                        ignored = true;
+                        break;
+                    }
+                }
+                if (!ignored) {
+                    for (State n : closed) {
+                        if (n.equals(state) && n.cost <= state.cost) {
+                            ignored = true;
+                            break;
+                        }
+                    }
+                }
+                if (!ignored) {
+                    open.add(state);
+                }
+            }
+            closed.add(q);
+        }
     }
 
     /*
@@ -61,26 +101,22 @@ public class Solver {
      * Research how to check this without exploring all states
      */
     public boolean isSolvable() {
-        // TODO: Your code here
-        return false;
+        return solved;
     }
 
     /*
      * Return the sequence of boards in a shortest solution, null if unsolvable
      */
     public Iterable<Board> solution() {
-        // TODO: Your code here
-        return null;
+        State state = this.solutionState;
+        List<Board> list = new LinkedList<>();
+        while (state != null) {
+            list.add(state.board);
+            state = state.prev;
+        }
+        return list;
     }
 
-    public State find(Iterable<State> iter, Board b) {
-        for (State s : iter) {
-            if (s.board.equals(b)) {
-                return s;
-            }
-        }
-        return null;
-    }
 
     /*
      * Debugging space
@@ -88,7 +124,6 @@ public class Solver {
     public static void main(String[] args) {
         int[][] initState = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
         Board initial = new Board(initState);
-
         Solver solver = new Solver(initial);
     }
 

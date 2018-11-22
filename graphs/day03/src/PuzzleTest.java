@@ -134,4 +134,15 @@ public class PuzzleTest {
         assertEquals(solver.minMoves, 31);
     }
 
+    @Test
+    public void testSolverInsane2() {
+        int[][] initState = {{6, 4, 7}, {8, 5, 0}, {3, 2, 1}};
+        Board initial = new Board(initState);
+        Solver solver = new Solver(initial);
+        assertEquals(solver.isSolvable(), true);
+        // Check number of moves
+        assertEquals(solver.minMoves, 31);
+    }
+
+
 }
