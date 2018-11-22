@@ -26,7 +26,7 @@ public class Solver {
             this.board = board;
             this.moves = moves;
             this.prev = prev;
-            this.cost = 10*this.moves + 22*board.manhattan();
+            this.cost = this.moves + board.manhattan();
         }
 
         @Override
@@ -115,6 +115,10 @@ public class Solver {
             state = state.prev;
         }
         return list;
+    }
+
+    public double moves() {
+        return minMoves;
     }
 
 

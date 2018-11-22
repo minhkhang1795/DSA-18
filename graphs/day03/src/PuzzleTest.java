@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test for 8 Puzzle functionality
@@ -47,11 +47,11 @@ public class PuzzleTest {
         int[][] initState = {{1, 0, 3}, {2, 4, 5}, {6, 7, 8}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), false);
+        assertFalse(solver.isSolvable());
         solver = new Solver(new Board(new int[][]{{1, 8, 2},{0,4,3},{7,6,5}}));
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         solver = new Solver(new Board(new int[][]{{8, 1, 2},{0,4,3},{7,6,5}}));
-        assertEquals(solver.isSolvable(), false);
+        assertFalse(solver.isSolvable());
     }
 
     /**
@@ -63,7 +63,7 @@ public class PuzzleTest {
         int[][] initState = {{1, 2, 3}, {4, 5, 6}, {7, 0, 8}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Create solution boards list
         assertEquals(solver.minMoves, 1);
     }
@@ -73,7 +73,7 @@ public class PuzzleTest {
         int[][] initState = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 4);
     }
@@ -84,7 +84,7 @@ public class PuzzleTest {
         int[][] initState = {{2, 3, 6}, {1, 5, 0}, {4, 7, 8}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 7);
     }
@@ -94,7 +94,7 @@ public class PuzzleTest {
         int[][] initState = {{0, 3, 5}, {2, 1, 8}, {4, 7, 6}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 12);
     }
@@ -104,7 +104,7 @@ public class PuzzleTest {
         int[][] initState = {{3, 5, 6}, {1, 2, 8}, {0, 4, 7}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 16);
     }
@@ -115,7 +115,7 @@ public class PuzzleTest {
         int[][] initState = {{3, 5, 2}, {6, 0, 1}, {7, 8, 4}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 22);
     }
@@ -129,7 +129,7 @@ public class PuzzleTest {
         int[][] initState = {{8, 6, 7}, {2, 5, 4}, {3, 0, 1}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 31);
     }
@@ -139,10 +139,17 @@ public class PuzzleTest {
         int[][] initState = {{6, 4, 7}, {8, 5, 0}, {3, 2, 1}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
-        assertEquals(solver.isSolvable(), true);
+        assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 31);
     }
 
-
+    @Test
+    public void testSolverInsane3() {
+        int[][] initState = {{0, 12, 9, 13}, {15, 11, 10, 14}, {3, 7, 2, 5}, {4, 8, 6, 1}};
+        Board initial = new Board(initState);
+        Solver solver = new Solver(initial);
+        // Check number of moves
+        assertEquals(solver.minMoves, 80);
+    }
 }

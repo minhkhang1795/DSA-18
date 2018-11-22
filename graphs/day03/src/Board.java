@@ -18,6 +18,18 @@ public class Board {
     public Board(int[][] b) {
         this.tiles = b;
         this.n = b.length; // should be 3
+        this.initGoal();
+    }
+
+    private void initGoal() {
+        goal = new int[n][n];
+        int count = 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                goal[i][j] = count++;
+            }
+        }
+        goal[n-1][n-1] = 0;
     }
 
     /*
@@ -51,8 +63,8 @@ public class Board {
                     continue;
                 }
                 value -= 1;
-                int hori = Math.abs(j - (value % 3));
-                int verti = Math.abs(i - value / 3);
+                int hori = Math.abs(j - (value % n));
+                int verti = Math.abs(i - value / n);
                 manhattan += hori + verti;
             }
         }
