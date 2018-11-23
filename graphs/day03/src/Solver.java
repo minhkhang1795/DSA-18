@@ -50,11 +50,14 @@ public class Solver {
      */
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
+        this.solveAStar();
+    }
+
+    private void solveAStar() {
         PriorityQueue<State> open = new PriorityQueue<>();
         List<State> closed = new LinkedList<>();
         open.add(this.solutionState);
         if (!this.solutionState.board.solvable()) {
-            this.minMoves = -1;
             this.solved = false;
             return;
         }
@@ -71,7 +74,6 @@ public class Solver {
                     this.minMoves = state.moves;
                     this.solved = true;
                     break outerloop;
-
                 }
                 boolean ignored = false;
                 for (State n : open) {
@@ -115,10 +117,6 @@ public class Solver {
             state = state.prev;
         }
         return list;
-    }
-
-    public double moves() {
-        return minMoves;
     }
 
 
