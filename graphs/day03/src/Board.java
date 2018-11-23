@@ -36,11 +36,11 @@ public class Board {
      * Prints out the board state nicely for debugging purposes
      */
     public void printBoard() {
-        for (int[] tiles : this.tiles) {
-            for (int aTile : tiles) System.out.print(aTile + " ");
+        for (int[] tile : this.tiles) {
+            for (int cell : tile) System.out.print(cell + "\t");
             System.out.println();
         }
-        System.out.println();
+		System.out.println("==============");
     }
 
     /*
@@ -109,7 +109,12 @@ public class Board {
                 }
             }
         }
-        return n % 2 != 0 ? numInv % 2 == 0 : (posFromBottom % 2 == 0 && numInv % 2 != 0);
+        if (n % 2 != 0) { // Odd board
+            return numInv % 2 == 0;
+        } else { // Even board
+			return posFromBottom % 2 == 0 && numInv % 2 != 0 || posFromBottom % 2 != 0 && numInv % 2 == 0;
+		}
+
     }
 
     /*

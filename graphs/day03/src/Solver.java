@@ -3,6 +3,7 @@
  * Construct a tree of board states using A* to find a path to the goal
  */
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solver {
@@ -26,7 +27,7 @@ public class Solver {
             this.board = board;
             this.moves = moves;
             this.prev = prev;
-            this.cost = this.moves + board.manhattan();
+            this.cost = moves + board.manhattan();
         }
 
         @Override
@@ -50,17 +51,50 @@ public class Solver {
      */
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
-        this.solveAStar();
+        if (this.isSolvable()) {
+            this.solveAStar();
+//            this.solveIDAStar();
+        }
+    }
+
+    private void solveIDAStar() {
+        int bound = solutionState.cost;
+        Stack<State> path = new Stack<>();
+        path.push(solutionState);
+        while (!solutionState.board.isGoal()) {
+            bound = searchIDAStar(path,solutionState.cost, bound);
+            System.out.println(bound);
+        }
+        minMoves = solutionState.moves;
+    }
+
+    private int searchIDAStar(Stack<State> path, int g, int bound) {
+        State currState = path.lastElement();
+        if (g > bound) {
+            return g;
+        }
+        if (currState.board.isGoal()) {
+            solutionState = currState;
+            return g;
+        }
+        int min = Integer.MAX_VALUE;
+        for (Board neighbor : currState.board.neighbors()) {
+            State state = new State(neighbor, currState.moves + 1, currState);
+            if (!path.contains(state)) {
+                path.push(state);
+                int t = searchIDAStar(path, state.cost, bound);
+                if (t < min)
+                    min = t;
+                path.pop();
+            }
+        }
+        return min;
     }
 
     private void solveAStar() {
         PriorityQueue<State> open = new PriorityQueue<>();
         List<State> closed = new LinkedList<>();
         open.add(this.solutionState);
-        if (!this.solutionState.board.solvable()) {
-            this.solved = false;
-            return;
-        }
         outerloop:
         while (!open.isEmpty()) {
             State q = open.poll();
@@ -103,16 +137,17 @@ public class Solver {
      * Research how to check this without exploring all states
      */
     public boolean isSolvable() {
-        return solved;
+        return this.solutionState.board.solvable();
     }
 
     /*
      * Return the sequence of boards in a shortest solution, null if unsolvable
      */
-    public Iterable<Board> solution() {
+    public List<Board> solution() {
         State state = this.solutionState;
         List<Board> list = new LinkedList<>();
         while (state != null) {
+            state.board.printBoard();
             list.add(state.board);
             state = state.prev;
         }
