@@ -33,7 +33,7 @@ public class PuzzleTest {
      */
     @Test
     public void testGoal() {
-        assertEquals(board.isGoal(), false);
+        assertFalse(board.isGoal());
     }
 
     // Test solver with several initial board states
@@ -149,6 +149,7 @@ public class PuzzleTest {
         int[][] initState = {{0, 12, 9, 13}, {15, 11, 10, 14}, {3, 7, 2, 5}, {4, 8, 6, 1}};
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
+		assertTrue(solver.isSolvable());
         // Check number of moves
         assertEquals(solver.minMoves, 80);
     }

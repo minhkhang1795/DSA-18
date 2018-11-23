@@ -91,21 +91,25 @@ public class Board {
      */
     public boolean solvable() {
         boolean[] reference = new boolean[n * n - 1];
-        int num_inv = 0;
-        for (int[] tile : this.tiles) {
+        int numInv = 0;
+        int posFromBottom = 0;
+        for (int i = 0; i < tiles.length; i++) {
+            int[] tile = tiles[i];
             for (int value : tile) {
                 if (value != 0) {
                     reference[value - 1] = true;
                     for (int k = 0; k < value - 1; k++) {
                         if (!reference[k]) {
-                            num_inv++;
+                            numInv++;
 
                         }
                     }
+                } else {
+                    posFromBottom = n - i;
                 }
             }
         }
-        return num_inv % 2 != 1;
+        return n % 2 != 0 ? numInv % 2 == 0 : (posFromBottom % 2 == 0 && numInv % 2 != 0);
     }
 
     /*
