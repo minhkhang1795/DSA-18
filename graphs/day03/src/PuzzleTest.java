@@ -154,38 +154,38 @@ public class PuzzleTest {
 		assertEquals(solver.minMoves, 0);
 	}
 
-//	@Test
-//	public void test15SolverMedium() {
-//		int[][] initState = {{6, 8, 0, 4}, {13, 9, 10, 14}, {15, 2, 12, 5}, {1, 3, 7, 11}};
-//		Board initial = new Board(initState);
-//		Solver solver = new Solver(initial);
-//		assertTrue(solver.isSolvable());
-//		// Check number of moves
-//		assertEquals(solver.minMoves, 50);
-//		solver.solution();
-//	}
-//
-//	@Test
-//	public void test15SolverMedium2() {
-//		int[][] initState = {{2, 7, 4, 3}, {1, 12, 8, 6}, {0, 14, 15, 9}, {13, 5, 11, 10}};
-//		Board initial = new Board(initState);
-//		Solver solver = new Solver(initial);
-//		assertTrue(solver.isSolvable());
-//		// Check number of moves
-//		assertEquals(solver.minMoves, 40);
-//		solver.solution();
-//	}
-//
-//	@Test
-//	public void test15SolverMedium3() {
-//		int[][] initState = {{2, 3, 1, 9}, {5, 4, 7, 11}, {10, 0, 14, 15}, {12, 8, 6, 13}};
-//		Board initial = new Board(initState);
-//		Solver solver = new Solver(initial);
-//		assertTrue(solver.isSolvable());
-//		// Check number of moves
-//		assertEquals(solver.minMoves, 51);
-//		solver.solution();
-//	}
+	@Test
+	public void test15SolverMedium() {
+		int[][] initState = {{6, 8, 0, 4}, {13, 9, 10, 14}, {15, 2, 12, 5}, {1, 3, 7, 11}};
+		Board initial = new Board(initState);
+		Solver solver = new Solver(initial);
+		assertTrue(solver.isSolvable());
+		// Check number of moves
+		assertEquals(solver.minMoves, 50);
+		solver.solution();
+	}
+
+	@Test
+	public void test15SolverMedium2() {
+		int[][] initState = {{2, 7, 4, 3}, {1, 12, 8, 6}, {0, 14, 15, 9}, {13, 5, 11, 10}};
+		Board initial = new Board(initState);
+		Solver solver = new Solver(initial);
+		assertTrue(solver.isSolvable());
+		// Check number of moves
+		assertEquals(solver.minMoves, 40);
+		solver.solution();
+	}
+
+	@Test
+	public void test15SolverMedium3() {
+		int[][] initState = {{2, 3, 1, 9}, {5, 4, 7, 11}, {10, 0, 14, 15}, {12, 8, 6, 13}};
+		Board initial = new Board(initState);
+		Solver solver = new Solver(initial);
+		assertTrue(solver.isSolvable());
+		// Check number of moves
+		assertEquals(solver.minMoves, 51);
+		solver.solution();
+	}
 
 //    @Test
 //    public void test15SolverInsane() {

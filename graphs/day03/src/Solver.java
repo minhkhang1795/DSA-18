@@ -55,8 +55,8 @@ public class Solver {
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
         if (this.isSolvable()) {
-//            this.solveAStar();
-            this.solveIDAStar();
+            this.solveAStar();
+//            this.solveIDAStar();
         }
     }
 
@@ -106,21 +106,20 @@ public class Solver {
         while (!open.isEmpty()) {
             State q = open.poll();
 //            System.out.println(q.moves);
-            Iterable<Board> neighbors = q.board.neighbors();
+            Queue<Board> neighbors = q.board.neighbors();
             if (q.board.isGoal()) {
                 // Stop search
                 this.solutionState = q;
                 this.minMoves = q.moves;
                 break;
             }
-            for (Board neighbor : neighbors) {
-                State state = new State(neighbor, q.moves + 1, q);
+            while (!neighbors.isEmpty()) {
+                State state = new State(neighbors.remove(), q.moves + 1, q);
 
                 if (!closed.containsKey(state)) {
                     open.add(state);
                     closed.put(state, state.cost);
                 } else if (closed.get(state) > state.cost) {
-//                    System.out.println("here");
                     open.add(state);
                     closed.replace(state, state.cost);
                 }

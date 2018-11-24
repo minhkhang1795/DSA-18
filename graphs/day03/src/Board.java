@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Board definition for the 8 Puzzle challenge
@@ -135,7 +133,7 @@ public class Board {
     /*
      * Return all neighboring boards in the state tree
      */
-    public Iterable<Board> neighbors() {
+    public Queue<Board> neighbors() {
         // all the edge cases when trying to move pieces into the blank spaces
 
         // find blank tile
@@ -152,7 +150,7 @@ public class Board {
             }
         }
 
-        List<Board> boards = new LinkedList<>();
+        Queue<Board> boards = new LinkedList<>();
 
         if (i0 + 1 < this.n) {
             Board board = new Board(clone(this.tiles));
