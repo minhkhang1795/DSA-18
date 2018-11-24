@@ -3,14 +3,12 @@
  * Construct a tree of board states using A* to find a path to the goal
  */
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solver {
 
     public int minMoves = -1;
     private State solutionState;
-    private boolean solved = false;
 
     /**
      * State class to make the cost calculations simple
@@ -52,8 +50,8 @@ public class Solver {
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
         if (this.isSolvable()) {
-//            this.solveAStar();
-            this.solveIDAStar();
+            this.solveAStar();
+//            this.solveIDAStar();
         }
     }
 
@@ -97,42 +95,30 @@ public class Solver {
 
     private void solveAStar() {
         PriorityQueue<State> open = new PriorityQueue<>();
-        List<State> closed = new LinkedList<>();
+        HashMap<State, Integer> closed = new HashMap<>();
         open.add(this.solutionState);
-        outerloop:
+        closed.put(this.solutionState, this.solutionState.cost);
         while (!open.isEmpty()) {
+//			System.out.println(open.size());
             State q = open.poll();
             Iterable<Board> neighbors = q.board.neighbors();
+            if (q.board.isGoal()) {
+                // Stop search
+                this.solutionState = q;
+                this.minMoves = q.moves;
+                break;
+            }
             for (Board neighbor : neighbors) {
                 State state = new State(neighbor, q.moves + 1, q);
 
-                if (neighbor.isGoal()) {
-                    //stop search
-                    this.solutionState = state;
-                    this.minMoves = state.moves;
-                    this.solved = true;
-                    break outerloop;
-                }
-                boolean ignored = false;
-                for (State n : open) {
-                    if (n.equals(state) && n.cost <= state.cost) {
-                        ignored = true;
-                        break;
-                    }
-                }
-                if (!ignored) {
-                    for (State n : closed) {
-                        if (n.equals(state) && n.cost <= state.cost) {
-                            ignored = true;
-                            break;
-                        }
-                    }
-                }
-                if (!ignored) {
+                if (!closed.containsKey(state)) {
                     open.add(state);
+                    closed.put(state, state.cost);
+                } else if (closed.get(state) > state.cost) {
+                    open.add(state);
+                    closed.replace(state, state.cost);
                 }
             }
-            closed.add(q);
         }
     }
 

@@ -8,6 +8,7 @@ public class Board {
 
     private int n;
     public int[][] tiles;
+    private int manhattan = -1;
 
     // Create a 2D array representing the solved board state
     private int[][] goal = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
@@ -17,8 +18,14 @@ public class Board {
      */
     public Board(int[][] b) {
         this.tiles = b;
-        this.n = b.length; // should be 3
-        this.initGoal();
+        this.n = b.length;
+        if (this.n == 3) {
+            this.goal = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+        } else if (this.n == 4) {
+            this.goal = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}};
+        } else {
+            this.initGoal();
+        }
     }
 
     private void initGoal() {
@@ -29,7 +36,7 @@ public class Board {
                 goal[i][j] = count++;
             }
         }
-        goal[n-1][n-1] = 0;
+        goal[n - 1][n - 1] = 0;
     }
 
     /*
@@ -40,7 +47,7 @@ public class Board {
             for (int cell : tile) System.out.print(cell + "\t");
             System.out.println();
         }
-		System.out.println("==============");
+        System.out.println("==============");
     }
 
     /*
@@ -55,7 +62,9 @@ public class Board {
      * Sum of the manhattan distances between the tiles and the goal
      */
     public int manhattan() {
-        int manhattan = 0;
+        if (this.manhattan != -1)
+            return this.manhattan;
+        this.manhattan = 0;
         for (int i = 0; i < this.tiles.length; i++) {
             for (int j = 0; j < this.tiles[i].length; j++) {
                 int value = this.tiles[i][j];
@@ -65,10 +74,10 @@ public class Board {
                 value -= 1;
                 int hori = Math.abs(j - (value % n));
                 int verti = Math.abs(i - value / n);
-                manhattan += hori + verti;
+                this.manhattan += hori + verti;
             }
         }
-        return manhattan;
+        return this.manhattan;
     }
 
     /*
@@ -112,8 +121,8 @@ public class Board {
         if (n % 2 != 0) { // Odd board
             return numInv % 2 == 0;
         } else { // Even board
-			return posFromBottom % 2 == 0 && numInv % 2 != 0 || posFromBottom % 2 != 0 && numInv % 2 == 0;
-		}
+            return posFromBottom % 2 == 0 && numInv % 2 != 0 || posFromBottom % 2 != 0 && numInv % 2 == 0;
+        }
 
     }
 
