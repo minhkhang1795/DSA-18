@@ -29,6 +29,11 @@ public class Solver {
         }
 
         @Override
+        public int hashCode() {
+            return this.board.hashCode();
+        }
+
+        @Override
         public boolean equals(Object s) {
             if (s == this) return true;
             if (s == null) return false;
@@ -50,8 +55,8 @@ public class Solver {
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
         if (this.isSolvable()) {
-            this.solveAStar();
-//            this.solveIDAStar();
+//            this.solveAStar();
+            this.solveIDAStar();
         }
     }
 
@@ -99,8 +104,8 @@ public class Solver {
         open.add(this.solutionState);
         closed.put(this.solutionState, this.solutionState.cost);
         while (!open.isEmpty()) {
-//			System.out.println(open.size());
             State q = open.poll();
+//            System.out.println(q.moves);
             Iterable<Board> neighbors = q.board.neighbors();
             if (q.board.isGoal()) {
                 // Stop search
@@ -115,6 +120,7 @@ public class Solver {
                     open.add(state);
                     closed.put(state, state.cost);
                 } else if (closed.get(state) > state.cost) {
+//                    System.out.println("here");
                     open.add(state);
                     closed.replace(state, state.cost);
                 }

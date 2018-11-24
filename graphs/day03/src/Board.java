@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +27,11 @@ public class Board {
         } else {
             this.initGoal();
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(tiles);
     }
 
     private void initGoal() {
@@ -148,38 +154,33 @@ public class Board {
 
         List<Board> boards = new LinkedList<>();
 
-        Board board = new Board(clone(this.tiles));
-        if (board.swap(board.tiles, i0, j0, i0 + 1, j0)) {
+        if (i0 + 1 < this.n) {
+            Board board = new Board(clone(this.tiles));
+            swap(board.tiles, i0, j0, i0 + 1, j0);
             boards.add(board);
         }
-
-
-        board = new Board(clone(this.tiles));
-        if (board.swap(board.tiles, i0, j0, i0 - 1, j0)) {
+        if (i0 - 1 >= 0) {
+            Board board = new Board(clone(this.tiles));
+            swap(board.tiles, i0, j0, i0 - 1, j0);
             boards.add(board);
         }
-
-        board = new Board(clone(this.tiles));
-        if (board.swap(board.tiles, i0, j0, i0, j0 + 1)) {
+        if (j0 + 1 < this.n) {
+            Board board = new Board(clone(this.tiles));
+            swap(board.tiles, i0, j0, i0, j0 + 1);
             boards.add(board);
         }
-
-        board = new Board(clone(this.tiles));
-        if (board.swap(board.tiles, i0, j0, i0, j0 - 1)) {
+        if (j0 - 1 >= 0) {
+            Board board = new Board(clone(this.tiles));
+            swap(board.tiles, i0, j0, i0, j0 - 1);
             boards.add(board);
         }
         return boards;
     }
 
-    private boolean swap(int[][] tiles, int i1, int j1, int i2, int j2) {
-        if (i2 < 0 || i2 >= this.n || j2 < 0 || j2 >= this.n) {
-            return false;
-        }
-
+    private void swap(int[][] tiles, int i1, int j1, int i2, int j2) {
         int temp = tiles[i1][j1];
         tiles[i1][j1] = tiles[i2][j2];
         tiles[i2][j2] = temp;
-        return true;
     }
 
     private int[][] clone(int[][] tiles) {
