@@ -37,7 +37,7 @@ public class Solver {
         }
 
         public int compareTo(State s) {
-            return this.cost - s.cost;
+            return this.cost == s.cost ? -this.moves + s.moves : this.cost - s.cost;
         }
     }
 
