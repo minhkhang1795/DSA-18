@@ -55,23 +55,25 @@ public class Solver {
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
         if (this.isSolvable()) {
-            this.solveAStar();
-//            this.solveIDAStar();
+//            this.solveAStar();
+            this.solveIDAStar();
         }
     }
 
     private void solveIDAStar() {
         int bound = solutionState.cost;
         Stack<State> path = new Stack<>();
+        HashSet<State> pathRef = new HashSet<>();
         path.push(solutionState);
+        pathRef.add(solutionState);
         while (!solutionState.board.isGoal()) {
-            bound = searchIDAStar(path, solutionState.cost, bound);
+            bound = searchIDAStar(path, pathRef, solutionState.cost, bound);
             System.out.println(bound);
         }
         minMoves = solutionState.moves;
     }
 
-    private int searchIDAStar(Stack<State> path, int f, int bound) {
+    private int searchIDAStar(Stack<State> path, HashSet<State> pathRef, int f, int bound) {
         State currState = path.lastElement();
         if (f > bound) {
             return f;
@@ -84,9 +86,10 @@ public class Solver {
         PriorityQueue<Board> neighbors = currState.board.neighbors();
         while (!neighbors.isEmpty()) {
             State state = new State(neighbors.poll(), currState.moves + 1, currState);
-            if (!path.contains(state)) {
+            if (!pathRef.contains(state)) {
                 path.push(state);
-                int t = searchIDAStar(path, state.cost, bound);
+                pathRef.add(state);
+                int t = searchIDAStar(path, pathRef, state.cost, bound);
                 if (t < 0) {
                     return -Math.abs(t); // FOUND SOLUTION
                 }
@@ -94,6 +97,7 @@ public class Solver {
                     min = t;
                 }
                 path.pop();
+                pathRef.remove(state);
             }
         }
         return min;
