@@ -55,8 +55,8 @@ public class Solver {
     public Solver(Board initial) {
         this.solutionState = new State(initial, 0, null);
         if (this.isSolvable()) {
-//            this.solveAStar();
-            this.solveIDAStar();
+            this.solveAStar();
+//            this.solveIDAStar();
         }
     }
 

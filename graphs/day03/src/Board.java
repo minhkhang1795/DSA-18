@@ -9,22 +9,12 @@ public class Board implements Comparable<Board> {
     public int[][] tiles;
     private int manhattan = -1;
 
-    // Create a 2D array representing the solved board state
-    private int[][] goal = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
-
     /*
      * Set the global board size and tile state
      */
     public Board(int[][] b) {
         this.tiles = b;
         this.n = b.length;
-        if (this.n == 3) {
-            this.goal = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
-        } else if (this.n == 4) {
-            this.goal = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}};
-        } else {
-            this.initGoal();
-        }
     }
 
     @Override
@@ -35,17 +25,6 @@ public class Board implements Comparable<Board> {
     @Override
     public int compareTo(Board s) {
         return this.manhattan() - s.manhattan();
-    }
-
-    private void initGoal() {
-        goal = new int[n][n];
-        int count = 1;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                goal[i][j] = count++;
-            }
-        }
-        goal[n - 1][n - 1] = 0;
     }
 
     /*
@@ -93,10 +72,13 @@ public class Board implements Comparable<Board> {
      * Compare the current state to the goal state
      */
     public boolean isGoal() {
+        int count = 1;
         for (int i = 0; i < this.tiles.length; i++) {
             for (int j = 0; j < this.tiles[i].length; j++) {
-                if (this.tiles[i][j] != this.goal[i][j]) {
-                    return false;
+                if (this.tiles[i][j] != count++) {
+                    if (i != this.n - 1 || j != this.n - 1) {
+                        return false;
+                    }
                 }
             }
         }
