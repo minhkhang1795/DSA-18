@@ -154,6 +154,17 @@ public class PuzzleTest {
 		assertEquals(solver.minMoves, 0);
 	}
 
+    @Test
+    public void test15SolverEasy() {
+        int[][] initState = {{4, 6, 3, 0}, {1, 2, 7, 12}, {8, 5, 9, 14}, {10, 11, 13, 15}};
+        Board initial = new Board(initState);
+        Solver solver = new Solver(initial);
+        assertTrue(solver.isSolvable());
+        // Check number of moves
+        assertEquals(solver.minMoves, 43);
+        solver.solution();
+    }
+
 	@Test
 	public void test15SolverMedium() {
 		int[][] initState = {{6, 8, 0, 4}, {13, 9, 10, 14}, {15, 2, 12, 5}, {1, 3, 7, 11}};

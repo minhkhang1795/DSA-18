@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Board definition for the 8 Puzzle challenge
  */
-public class Board {
+public class Board implements Comparable<Board> {
 
     private int n;
     public int[][] tiles;
@@ -30,6 +30,11 @@ public class Board {
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(tiles);
+    }
+
+    @Override
+    public int compareTo(Board s) {
+        return this.manhattan() - s.manhattan();
     }
 
     private void initGoal() {
@@ -133,7 +138,7 @@ public class Board {
     /*
      * Return all neighboring boards in the state tree
      */
-    public Queue<Board> neighbors() {
+    public PriorityQueue<Board> neighbors() {
         // all the edge cases when trying to move pieces into the blank spaces
 
         // find blank tile
@@ -150,7 +155,7 @@ public class Board {
             }
         }
 
-        Queue<Board> boards = new LinkedList<>();
+        PriorityQueue<Board> boards = new PriorityQueue<>();
 
         if (i0 + 1 < this.n) {
             Board board = new Board(clone(this.tiles));

@@ -81,8 +81,9 @@ public class Solver {
             return -Math.abs(f); // FOUND SOLUTION
         }
         int min = Integer.MAX_VALUE;
-        for (Board neighbor : currState.board.neighbors()) {
-            State state = new State(neighbor, currState.moves + 1, currState);
+        PriorityQueue<Board> neighbors = currState.board.neighbors();
+        while (!neighbors.isEmpty()) {
+            State state = new State(neighbors.poll(), currState.moves + 1, currState);
             if (!path.contains(state)) {
                 path.push(state);
                 int t = searchIDAStar(path, state.cost, bound);
@@ -106,15 +107,15 @@ public class Solver {
         while (!open.isEmpty()) {
             State q = open.poll();
 //            System.out.println(q.moves);
-            Queue<Board> neighbors = q.board.neighbors();
             if (q.board.isGoal()) {
                 // Stop search
                 this.solutionState = q;
                 this.minMoves = q.moves;
                 break;
             }
+            PriorityQueue<Board> neighbors = q.board.neighbors();
             while (!neighbors.isEmpty()) {
-                State state = new State(neighbors.remove(), q.moves + 1, q);
+                State state = new State(neighbors.poll(), q.moves + 1, q);
 
                 if (!closed.containsKey(state)) {
                     open.add(state);
